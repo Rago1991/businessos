@@ -1,287 +1,298 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BusinessOS – Dein Business Dashboard</title>
-    <meta name="description" content="Das intelligente Dashboard für dein Business. Tasks, Finanzen, Notizen – alles an einem Ort.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BusinessOS – Das Betriebssystem für dein Unternehmen</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#080d1a;
+  --surface:#0f172a;
+  --surface2:#1e293b;
+  --blue:#1d4ed8;
+  --blue2:#3b82f6;
+  --teal:#0d9488;
+  --teal2:#2dd4bf;
+  --border:rgba(99,179,255,.1);
+  --border2:rgba(99,179,255,.22);
+  --text:#f0f6ff;
+  --text2:#94a3b8;
+  --text3:#475569;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--navy);color:var(--text);line-height:1.6;overflow-x:hidden}
 
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent-cyan: #06b6d4;
-            --accent-purple: #8b5cf6;
-        }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 40px;height:60px;background:rgba(8,13,26,.9);backdrop-filter:blur(14px);border-bottom:.5px solid var(--border)}
+.logo{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:700;color:var(--text);text-decoration:none}
+.logo-box{width:30px;height:30px;border-radius:7px;background:linear-gradient(135deg,var(--blue),var(--teal));display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:#fff}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:14px;color:var(--text2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--blue);color:#fff;border:none;padding:8px 20px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s}
+.nav-cta:hover{background:var(--blue2)}
 
-        html {
-            scroll-behavior: smooth;
-        }
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 24px 60px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 800px 500px at 50% 35%,rgba(29,78,216,.2) 0%,transparent 70%),radial-gradient(ellipse 500px 350px at 75% 65%,rgba(13,148,136,.12) 0%,transparent 65%)}
+.hero-grid{position:absolute;inset:0;z-index:0;background-image:linear-gradient(rgba(99,179,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(99,179,255,.035) 1px,transparent 1px);background-size:48px 48px}
+.hero-content{position:relative;z-index:1;max-width:780px}
+.badge{display:inline-flex;align-items:center;gap:7px;background:rgba(99,102,241,.12);border:.5px solid rgba(99,102,241,.35);border-radius:20px;padding:5px 14px;font-size:12px;color:#a5b4fc;margin-bottom:24px}
+.bdot{width:5px;height:5px;border-radius:50%;background:#6366f1;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-size:clamp(34px,6vw,64px);font-weight:800;letter-spacing:-2px;line-height:1.08;margin-bottom:20px;background:linear-gradient(135deg,#dbeafe 0%,#93c5fd 45%,#2dd4bf 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:17px;color:var(--text2);max-width:520px;margin:0 auto 36px;line-height:1.75}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-p{background:linear-gradient(135deg,var(--blue),var(--teal));color:#fff;border:none;padding:13px 30px;border-radius:9px;font-size:15px;font-weight:600;cursor:pointer;transition:opacity .2s,transform .15s}
+.btn-p:hover{opacity:.85;transform:translateY(-1px)}
+.btn-s{background:transparent;color:var(--text);border:.5px solid var(--border2);padding:13px 28px;border-radius:9px;font-size:15px;font-weight:500;cursor:pointer;transition:background .2s}
+.btn-s:hover{background:var(--surface2)}
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+/* HERO IMAGE */
+.hero-img-wrap{position:relative;z-index:1;margin-top:52px;width:100%;max-width:860px;border-radius:14px;overflow:hidden;border:.5px solid var(--border2)}
+.hero-img-wrap::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,transparent 60%,var(--navy) 100%)}
+.hero-img-wrap img{width:100%;display:block;height:420px;object-fit:cover;object-position:center top;filter:brightness(.75) saturate(1.1)}
+.img-overlay{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:28px 32px;display:flex;gap:16px;flex-wrap:wrap}
+.kpi{background:rgba(15,23,42,.85);border:.5px solid var(--border2);border-radius:10px;padding:12px 18px;backdrop-filter:blur(8px)}
+.kpi-val{font-size:22px;font-weight:700;color:var(--text)}
+.kpi-lbl{font-size:11px;color:var(--text2)}
+.kpi-trend{font-size:11px;color:#34d399;margin-top:1px}
+.kpi-trend.dn{color:#f87171}
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
+/* MODULES */
+.modules{padding:90px 40px;max-width:1100px;margin:0 auto}
+.sec-tag{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--teal2);margin-bottom:10px}
+.sec-title{font-size:clamp(26px,4vw,40px);font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:14px}
+.sec-sub{font-size:16px;color:var(--text2);max-width:480px;line-height:1.7;margin-bottom:48px}
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.mod{background:var(--surface);border:.5px solid var(--border);border-radius:12px;padding:24px 20px;transition:border-color .2s,transform .2s}
+.mod:hover{border-color:var(--border2);transform:translateY(-2px)}
+.mod-ico{width:40px;height:40px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px}
+.ic-b{background:rgba(29,78,216,.18)}
+.ic-t{background:rgba(13,148,136,.18)}
+.ic-p{background:rgba(99,102,241,.18)}
+.ic-a{background:rgba(245,158,11,.18)}
+.ic-r{background:rgba(236,72,153,.18)}
+.ic-g{background:rgba(16,185,129,.18)}
+.mod-name{font-size:14px;font-weight:600;margin-bottom:5px}
+.mod-desc{font-size:12px;color:var(--text2);line-height:1.6}
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 800;
-            font-size: 1.5rem;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
+/* AI */
+.ai-wrap{background:var(--surface);border-top:.5px solid var(--border);border-bottom:.5px solid var(--border);padding:90px 40px}
+.ai-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+.ai-feat{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.feat-row{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text2)}
+.feat-row span{color:var(--teal2);flex-shrink:0;font-size:15px}
+.ai-box{background:var(--navy);border:.5px solid var(--border2);border-radius:12px;padding:18px}
+.cmsg{display:flex;gap:9px;margin-bottom:14px;align-items:flex-start}
+.cav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.cu{background:rgba(99,179,255,.2);color:var(--blue2)}
+.ca{background:linear-gradient(135deg,#1d4ed8,#0d9488);color:#fff}
+.cbub{background:var(--surface2);border-radius:9px;padding:9px 12px;font-size:12px;line-height:1.65;color:var(--text)}
+.cbub.ai{background:rgba(29,78,216,.12);border:.5px solid rgba(29,78,216,.25)}
+.hl{color:var(--teal2);font-weight:500}
+.cinput{display:flex;gap:8px;margin-top:6px;background:var(--surface2);border:.5px solid var(--border2);border-radius:7px;padding:7px 11px;align-items:center}
+.cinput span{font-size:12px;color:var(--text3);flex:1}
+.csend{background:var(--blue);color:#fff;border:none;border-radius:5px;padding:3px 10px;font-size:12px;cursor:pointer}
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--accent-purple));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
+/* DATA PILLARS */
+.pillars-sec{padding:90px 40px;max-width:1100px;margin:0 auto}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-top:48px;background:var(--border);border:.5px solid var(--border);border-radius:12px;overflow:hidden;gap:1px}
+.pillar{background:var(--surface);padding:28px 22px;transition:background .2s}
+.pillar:hover{background:var(--surface2)}
+.pnum{font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--blue2),var(--teal2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.plbl{font-size:13px;color:var(--text2)}
 
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
-            list-style: none;
-        }
+/* PHOTO STRIP */
+.photo-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 40px 90px;max-width:1100px;margin:0 auto}
+.photo-card{border-radius:12px;overflow:hidden;position:relative;height:200px;border:.5px solid var(--border)}
+.photo-card img{width:100%;height:100%;object-fit:cover;filter:brightness(.7) saturate(1.05);transition:transform .4s,filter .3s}
+.photo-card:hover img{transform:scale(1.04);filter:brightness(.85) saturate(1.1)}
+.photo-lbl{position:absolute;bottom:14px;left:14px;font-size:13px;font-weight:600;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6)}
 
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+/* CTA */
+.cta{text-align:center;padding:90px 40px;background:var(--surface);border-top:.5px solid var(--border);position:relative;overflow:hidden}
+.cta-glow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:500px;height:300px;background:radial-gradient(ellipse,rgba(29,78,216,.2) 0%,transparent 70%);pointer-events:none}
+.cta h2{font-size:clamp(24px,4vw,44px);font-weight:800;letter-spacing:-1.5px;margin-bottom:12px;position:relative}
+.cta p{font-size:16px;color:var(--text2);margin-bottom:32px;position:relative}
+.cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative}
 
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
+/* FOOTER */
+footer{background:#060a14;border-top:.5px solid var(--border);padding:32px 40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.flinks{display:flex;gap:20px}
+.flinks a{font-size:12px;color:var(--text3);text-decoration:none}
+.flinks a:hover{color:var(--text2)}
+.fcopy{font-size:12px;color:var(--text3)}
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 8rem 2rem 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            max-width: 900px;
-            z-index: 1;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(99, 102, 241, 0.1);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            color: var(--primary-light);
-            margin-bottom: 2rem;
-        }
-
-        .hero-badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: #22c55e;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .hero h1 {
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero h1 span {
-            background: linear-gradient(135deg, var(--primary), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2.5rem;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Stats Section */
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            padding: 3rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            display: block;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        footer a {
-            color: var(--primary-light);
-            text-decoration: none;
-        }
-
-        /* Mobile */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding-top: 6rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .stats {
-                gap: 2rem;
-            }
-        }
-    </style>
+@media(max-width:700px){
+  nav{padding:0 20px}.nav-links{display:none}
+  .ai-inner{grid-template-columns:1fr}
+  .photo-strip{grid-template-columns:1fr}
+  .pillars{grid-template-columns:1fr 1fr}
+  section,.modules,.ai-wrap,.pillars-sec,.photo-strip,.cta{padding-left:20px;padding-right:20px}
+  footer{padding:24px 20px;flex-direction:column;align-items:flex-start}
+}
+</style>
 </head>
 <body>
-    <nav>
-        <a href="#" class="logo">
-            <div class="logo-icon">⚡</div>
-            BusinessOS
-        </a>
-        <ul class="nav-links">
-            <li><a href="#features">Features</
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">
+    <div class="logo-box">B</div>BusinessOS
+  </a>
+  <div class="nav-links">
+    <a href="#modules">Module</a>
+    <a href="#ai">KI</a>
+    <a href="#data">Datenschutz</a>
+  </div>
+  <button class="nav-cta">Demo anfragen</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="max-width:100%">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="badge"><span class="bdot"></span> Early Access – jetzt starten</div>
+    <h1>Das Betriebssystem für dein gesamtes Unternehmen</h1>
+    <p class="hero-sub">CRM, ERP, Finance, HR – alles in einer Plattform. KI als Eingabe. Deine Daten bleiben bei dir.</p>
+    <div class="btns">
+      <button class="btn-p">Kostenlos starten</button>
+      <button class="btn-s">Live-Demo ansehen →</button>
+    </div>
+  </div>
+
+  <!-- Hero image from Unsplash – free commercial use -->
+  <div class="hero-img-wrap">
+    <img
+      src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&fit=crop"
+      alt="Business Analytics Dashboard"
+      loading="eager"
+    />
+    <div class="img-overlay">
+      <div class="kpi">
+        <div class="kpi-val">€ 342.800</div>
+        <div class="kpi-lbl">Umsatz (MTD)</div>
+        <div class="kpi-trend">↑ 14,2 %</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">47</div>
+        <div class="kpi-lbl">Offene Angebote</div>
+        <div class="kpi-trend">↑ 8 neu</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-val">97,3 %</div>
+        <div class="kpi-lbl">Liefertreue</div>
+        <div class="kpi-trend dn">↓ 0,4 % vs. Ziel</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<div class="modules" id="modules">
+  <div class="sec-tag">Alle Module. Eine Plattform.</div>
+  <h2 class="sec-title">Alles, was dein Unternehmen braucht</h2>
+  <p class="sec-sub">Kein Datenchaos mehr zwischen Insellösungen. Alle Bereiche fließen in eine zentrale Datenbank.</p>
+  <div class="mod-grid">
+    <div class="mod"><div class="mod-ico ic-b">👥</div><div class="mod-name">CRM & Marketing</div><div class="mod-desc">Kontakte, Leads, Pipeline, Kampagnen – die vollständige Customer Journey.</div></div>
+    <div class="mod"><div class="mod-ico ic-t">📦</div><div class="mod-name">ERP & Warenwirtschaft</div><div class="mod-desc">Artikel, Lager, Einkauf, Produktion – Livebestände und Nachbestellpunkte.</div></div>
+    <div class="mod"><div class="mod-ico ic-a">💶</div><div class="mod-name">Finance & Buchhaltung</div><div class="mod-desc">Angebote, Rechnungen, DATEV-Export, Liquiditätsplanung in Echtzeit.</div></div>
+    <div class="mod"><div class="mod-ico ic-p">🧑‍💼</div><div class="mod-name">HR & Personal</div><div class="mod-desc">Mitarbeiterstamm, Zeiterfassung, Urlaub, Lohnvorbereitung – DSGVO-konform.</div></div>
+    <div class="mod"><div class="mod-ico ic-r">📊</div><div class="mod-name">Reporting & BI</div><div class="mod-desc">Individuelle Dashboards, Forecasts und KPIs auf Basis aller Daten.</div></div>
+    <div class="mod"><div class="mod-ico ic-g">🔗</div><div class="mod-name">Projekte & Aufgaben</div><div class="mod-desc">Planung, Ressourcen, Zeitbuchungen – direkt verknüpft mit CRM und Finance.</div></div>
+  </div>
+</div>
+
+<!-- PHOTO STRIP -->
+<div class="photo-strip">
+  <div class="photo-card">
+    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=75&fit=crop" alt="Team im Büro" loading="lazy">
+    <div class="photo-lbl">Teamarbeit</div>
+  </div>
+  <div class="photo-card">
+    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=75&fit=crop" alt="Analytics" loading="lazy">
+    <div class="photo-lbl">Echtzeit-Analytics</div>
+  </div>
+  <div class="photo-card">
+    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&q=75&fit=crop" alt="Modernes Büro" loading="lazy">
+    <div class="photo-lbl">Modernes Arbeiten</div>
+  </div>
+</div>
+
+<!-- AI -->
+<div class="ai-wrap" id="ai">
+  <div class="ai-inner">
+    <div>
+      <div class="sec-tag">KI als Eingabe</div>
+      <h2 class="sec-title">Frag einfach. Die KI erledigt den Rest.</h2>
+      <p style="font-size:15px;color:var(--text2);line-height:1.7;max-width:420px">Keine komplizierten Masken. Stelle Fragen in natürlicher Sprache – BusinessOS durchsucht alle Daten, strukturiert Ergebnisse und berechnet Prognosen automatisch.</p>
+      <div class="ai-feat">
+        <div class="feat-row"><span>✓</span> KI-Suche über alle Module</div>
+        <div class="feat-row"><span>✓</span> Automatische Datenstrukturierung</div>
+        <div class="feat-row"><span>✓</span> Umsatz- und Bedarfsprognosen</div>
+        <div class="feat-row"><span>✓</span> MCP-Anbindung (bald verfügbar)</div>
+      </div>
+    </div>
+    <div class="ai-box">
+      <div class="cmsg">
+        <div class="cav cu">Du</div>
+        <div class="cbub">Zeig mir die Top-5-Kunden nach Umsatz in Q1 und erstelle eine Prognose für Q2.</div>
+      </div>
+      <div class="cmsg">
+        <div class="cav ca">AI</div>
+        <div class="cbub ai">
+          Analyse abgeschlossen. Deine <span class="hl">Top-5-Kunden</span> erzielten zusammen <span class="hl">€ 1,24 Mio.</span> – das sind 38 % des Gesamtumsatzes.<br><br>
+          Auf Basis offener Angebote prognostiziere ich für Q2 ein Wachstum von <span class="hl">+11–15 %</span>.
+        </div>
+      </div>
+      <div class="cinput">
+        <span>Nächste Frage stellen…</span>
+        <button class="csend">→</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DATA -->
+<div class="pillars-sec" id="data">
+  <div class="sec-tag">Datensouveränität</div>
+  <h2 class="sec-title">Deine Daten. Deine Kontrolle.</h2>
+  <p class="sec-sub">Alle Unternehmensdaten in deiner eigenen Datenbank – on-premise oder private cloud. Kein Vendor-Lock-in.</p>
+  <div class="pillars">
+    <div class="pillar"><div class="pnum">100 %</div><div class="plbl">Dateneigentum</div></div>
+    <div class="pillar"><div class="pnum">0</div><div class="plbl">Daten an Dritte</div></div>
+    <div class="pillar"><div class="pnum">DSGVO</div><div class="plbl">konform</div></div>
+    <div class="pillar"><div class="pnum">E2E</div><div class="plbl">Verschlüsselt</div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <div class="cta-glow"></div>
+  <h2>Bereit für das Betriebssystem deines Unternehmens?</h2>
+  <p>Starte kostenlos – keine Kreditkarte, kein Risiko.</p>
+  <div class="cta-btns">
+    <button class="btn-p" style="font-size:16px;padding:14px 36px">Jetzt kostenlos starten</button>
+    <button class="btn-s" style="font-size:16px;padding:14px 32px">Demo anfragen</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a class="logo" href="#" style="font-size:15px">
+    <div class="logo-box" style="width:26px;height:26px;font-size:13px">B</div>BusinessOS
+  </a>
+  <div class="flinks">
+    <a href="#">Datenschutz</a>
+    <a href="#">Impressum</a>
+    <a href="#">AGB</a>
+    <a href="#">Kontakt</a>
+  </div>
+  <div class="fcopy">© 2025 BusinessOS. Alle Rechte vorbehalten.</div>
+</footer>
+
+</body>
+</html>
